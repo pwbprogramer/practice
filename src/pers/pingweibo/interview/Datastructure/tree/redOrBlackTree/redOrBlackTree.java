@@ -56,7 +56,6 @@ public class redOrBlackTree {
 		insertNode.parent = tempFather;
 		if(tempFather == null) {
 			root = insertNode;
-			return;
 		}else if(insertNode.key<tempFather.key) {
 			tempFather.left=insertNode;
 		}else {
@@ -71,15 +70,15 @@ public class redOrBlackTree {
 	 * @param insertNode
 	 */
 	private void fix(Node insertNode) {
-		while(insertNode.parent.color==Color.Red) {
+		while(insertNode!=null&&insertNode!=root&&insertNode.parent.color==Color.Red) {
 			if(insertNode.parent==insertNode.parent.parent.left) {
 				Node t = insertNode.parent.parent.right;
-				if(t.color==Color.Red) {
+				if(t!=null&&t.color==Color.Red) {
 					t.color = Color.Black;
 					insertNode.parent.color = Color.Black;
 					insertNode.parent.parent.color = Color.Red;
 					insertNode = insertNode.parent.parent;
-				}else if(insertNode == insertNode.parent.right) {
+				}else if(insertNode == insertNode.parent.right) {//右孩子进行左旋
 					insertNode = insertNode.parent;
 					leftRotate(insertNode);
 				}
@@ -88,20 +87,21 @@ public class redOrBlackTree {
 				rightRotate(insertNode.parent.parent);
 			}else {
 				Node t = insertNode.parent.parent.left;
-				if(t.color==Color.Red) {
+				if(t!=null&&t.color==Color.Red) {
 					t.color = Color.Black;
 					insertNode.parent.color =  Color.Black;
 					insertNode.parent.parent.color = Color.Red;
 					insertNode = insertNode.parent.parent;
-				}else if(insertNode == insertNode.parent.right) {
+				}else if(insertNode == insertNode.parent.left) {
 					insertNode = insertNode.parent;
-					leftRotate(insertNode);
+					rightRotate(insertNode);
 				}
 				insertNode.parent.color = Color.Black;
 				insertNode.parent.parent.color = Color.Red;
-				rightRotate(insertNode.parent.parent);
+				leftRotate(insertNode.parent.parent);
 			}
 		}
+		this.root.color = Color.Black;
 	}
 	
 	/**

@@ -1,5 +1,7 @@
 package pers.pingweibo.interview.Datastructure.tree.redOrBlackTree;
 
+import java.util.TreeMap;
+
 public class Main {
    
 	public static void main(String[] args) {
@@ -14,5 +16,7 @@ public class Main {
 			redOrBlackTree.insert(i);
 		}
 		redOrBlackTree.show();
+		
+		TreeMap treeMap = new TreeMap();
 	}
 }
